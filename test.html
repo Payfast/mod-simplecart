@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <title>Simple</title>
+        <title>simpleCartjs Payfast Shopping basket Example</title>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/simpleCart.js"></script>
         <script type="text/javascript">
@@ -42,8 +42,14 @@
             });
             ;
         </script>
-
-    <table border="1">
+        <style>
+            .simpleCart_items div{
+                float:left;
+                position: relative;
+                margin-right: 20px;
+            }
+        </style>
+    <table>
         <tr>
             <td>
                 <div class="simpleCart_shelfItem">
@@ -62,11 +68,11 @@
                     <h5 class="item_name">DUMMY PRODUCT 2</h5>
                     <img src="images/num_2_m.gif" alt="DUMMY PRODUCT 2" title="DUMMY PRODUCT 2" class="item_image"/>
                     <span class="item_price"><strong>R20.02</strong></span>
+                    <a href="javascript:;" class="item_add">Add to Cart</a>
                     <p class="item_Description">
                         DUMMY PRODUCT 2 description goes here.<br>
                         DUMMY PRODUCT 2 description goes here.
                     </p>
-                    <a href="javascript:;" class="item_add">Add to Cart</a>
                 </div>  
             </td>
         </tr>
@@ -97,7 +103,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><div class="simpleCart_items"></div></td>
+            <td colspan="2"><div style="width:400px;" class="simpleCart_items"></div></td>
         </tr>
         <tr>
             <td colspan="2" align="center">
