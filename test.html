@@ -31,20 +31,20 @@
                     }
                 },
                 beforeCheckout: function( data ){
+                    data.currency = "ZAR";
+                    data.cancel_url = data.cancel_return;
+                    data.return_url = data.return;
                     var payfast_description = '';
                     for (var key in data)
                         if (key.match(/^item_name/))
                             payfast_description += data[key];
-                    data.currency = "ZAR";
                     data.item_description = data.item_name = payfast_description;
-                    data.cancel_url = data.cancel_return;
-                    data.return_url = data.return;
                 }
             });
             ;
         </script>
         <style>
-            .simpleCart_items div {
+            .simpleCart_items div, div {
                 float:left;
                 position: relative;
                 margin-right: 20px;
