@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <title>simpleCartjs Payfast Shopping basket Example</title>
+        <title>simpleCartjs Payfast Example</title>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/simpleCart.js"></script>
         <script type="text/javascript">
@@ -11,31 +11,32 @@
                     type: "SendForm" , 
                     url: "https://www.payfast.local/eng/process" ,
 
-                    // http method for form, "POST" or "GET", default is "POST"
+                    // HTTP method for form, "POST" or "GET", default is "POST"
                     method: "POST" , 
 
-                    // url to return to on successful checkout
+                    // URL to redirect browser to after successful checkout
                     success: "http://ben.co.za/" , 
 
-                    // url to return to on cancelled checkout, default is null
+                    // URL to return to on cancelled checkout, default is null
                     cancel: "http://ben.co.za/aginee.html" ,
 
-                    // an option list of extra name/value pairs that can
-                    // be sent along with the checkout data
                     extra_data: {
                         currency_code: "ZAR",
-                        storename: "Bob's cool plumbing store",
                         merchant_id: "10000128",
                         merchant_key: "9n87w9cu6kww0",
-                        notify_url: "http://ben.co.za/notify.ben",  //this is the ITN / callback URL
-                        amount: simpleCart.total,
-                        name_first: "bob",
-                        name_last: "mob"
+                        notify_url: "http://ben.co.za/notify.ben",  //this is the ITN or callback URL
+                        amount: simpleCart.total,                   // Total amount = item1 + item2 + item3 etc
+                        name_first: "payfast",                       // Buyer first name [ie. the first name of a logged in Joomla or Wordpress user]",
+                        name_last: "Buyer",                         // Buyer last name [ie. the last name of a logged in Joomla or Wordpress user]",
                     }
                 },
                 beforeCheckout: function( data ){
+                    var payfast_description = '';
+                    for (var key in data)
+                        if (key.match(/^item_name/))
+                            payfast_description += data[key];
                     data.currency = "ZAR";
-                    data.item_description = data.item_name = data.item_name_1;
+                    data.item_description = data.item_name = payfast_description;
                     data.cancel_url = data.cancel_return;
                     data.return_url = data.return;
                 }
@@ -103,7 +104,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><div style="width:400px;" class="simpleCart_items"></div></td>
+            <td colspan="2"><div style="width:700px;" class="simpleCart_items"></div></td>
         </tr>
         <tr>
             <td colspan="2" align="center">
