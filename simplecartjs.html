@@ -9,7 +9,7 @@
             simpleCart({
                 checkout: { 
                     type: "SendForm" , 
-                    url: "https://www.payfast.local/eng/process" ,
+                    url: "https://sandbox.payfast.co.za/eng/process" ,
 
                     // HTTP method for form, "POST" or "GET", default is "POST"
                     method: "POST" , 
@@ -22,8 +22,8 @@
 
                     extra_data: {
                         currency_code: "ZAR",
-                        merchant_id: "10000128",
-                        merchant_key: "9n87w9cu6kww0",
+                        merchant_id: "10000100",
+                        merchant_key: "46f0cd694581a",
                         notify_url: "http://simplecart.js/notify.html",  //this is the ITN or callback URL
                         amount: simpleCart.total,                        // Total amount = item1 + item2 + item3 etc
                         name_first: "payfast",                           // Buyer first name [ie. the first name of a logged in Joomla or Wordpress user]",
