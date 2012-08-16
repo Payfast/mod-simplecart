@@ -1,4 +1,12 @@
-Simplecart
-==========
+PayFast simpleCart(js) shopping cart demo
+--------------------------------------------------------------
+Copyright © 2012 PayFast (Pty) Ltd
 
-Simple example implementation using Simple Cart
+
+******************************************************************************
+* *
+* Please see the URL below  *
+* *
+* https://www.payfast.co.za/help/simpleCartjs *
+* *
+******************************************************************************
