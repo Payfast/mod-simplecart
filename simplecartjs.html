@@ -11,23 +11,23 @@
                     type: "SendForm" , 
                     url: "https://sandbox.payfast.co.za/eng/process" ,
 
-                    // HTTP method for form, "POST" or "GET", default is "POST"
+                    // HTTP method for form, "POST" 
                     method: "POST" , 
 
                     // URL to redirect browser to after successful checkout
-                    success: "http://simplecart.js/success.html" , 
+                    success: "http://yourwebsite.co.za/success.html" , 
 
-                    // URL to return to on cancelled checkout, default is null
-                    cancel: "http://simplecart.js/cancel.html" ,
+                    // URL to redirect browser to after checkout was cancelled by buyer
+                    cancel: "http://yourwebsite.co.za/cancel.html" ,
 
                     extra_data: {
                         currency_code: "ZAR",
                         merchant_id: "10000100",
                         merchant_key: "46f0cd694581a",
-                        notify_url: "http://simplecart.js/notify.html",  //this is the ITN or callback URL
-                        amount: simpleCart.total,                        // Total amount = item1 + item2 + item3 etc
-                        name_first: "payfast",                           // Buyer first name [ie. the first name of a logged in Joomla or Wordpress user]",
-                        name_last: "Buyer",                             // Buyer last name [ie. the last name of a logged in Joomla or Wordpress user]",
+                        notify_url: "http://yourwebsite.co.za/notify.html", //this is the ITN or callback URL
+                        amount: simpleCart.total,                           // Total amount = item1 + item2 + item3 etc
+                        name_first: "Buyer first name",                          
+                        name_last: "Buyer last name",                       
                     }
                 },
                 beforeCheckout: function( data ){
@@ -37,7 +37,7 @@
                     var payfast_description = '';
                     for (var key in data)
                         if (key.match(/^item_name/))
-                            payfast_description += data[key];
+                            payfast_description += ' '+data[key];
                     data.item_description = data.item_name = payfast_description;
                 }
             });
