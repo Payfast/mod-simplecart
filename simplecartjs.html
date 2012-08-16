@@ -9,22 +9,22 @@
             simpleCart({
                 checkout: { 
                     type: "SendForm" , 
-                    url: "https://sandbox.payfast.co.za/eng/process" ,
+                    url: "https://payfast.local/eng/process" ,
 
                     // HTTP method for form, "POST" 
                     method: "POST" , 
 
                     // URL to redirect browser to after successful checkout
-                    success: "http://yourwebsite.co.za/success.html" , 
+                    success: "http://simplecart.js/success.html" , 
 
                     // URL to redirect browser to after checkout was cancelled by buyer
-                    cancel: "http://yourwebsite.co.za/cancel.html" ,
+                    cancel: "http://simplecart.js/cancel.html" ,
 
                     extra_data: {
                         currency_code: "ZAR",
                         merchant_id: "10000100",
                         merchant_key: "46f0cd694581a",
-                        notify_url: "http://yourwebsite.co.za/notify.html", //this is the ITN or callback URL
+                        notify_url: "http://simplecart.js/notify.html", //this is the ITN or callback URL
                         amount: simpleCart.total,                           // Total amount = item1 + item2 + item3 etc
                         name_first: "Buyer first name",                          
                         name_last: "Buyer last name",                       
