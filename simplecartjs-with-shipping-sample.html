@@ -27,10 +27,11 @@
                     cancel: "http://yourdomain.com/cancel.html" ,
 
                     extra_data: {
-                        merchant_id: "10000100", 
-                        merchant_key: "46f0cd694581a",
-                        notify_url: "http://yourdomain.com/notify.html", 
-                        item_name: "Purchase from my store"                      
+                        merchant_id: "10000100", // Change this to your merchant ID, you can find this in the Settings section of your PayFast account
+                        merchant_key: "46f0cd694581a", // Change this to your merchant Key, you can find this in the Settings section of your PayFast account
+                        notify_url: "http://yourdomain.com/notify.html", // If you have a page to handle the ITN, else remove this line
+                        item_name: "Purchase from my store", // Change this to describe a generic sale              
+                        m_payment_id: "123456789" // This could be used to identify the order within the ITN callback
                     }
                 },
                 // Custom function to handle shipping costs
@@ -46,9 +47,14 @@
                 //shippingQuantityRate: 3, //rate based on the total quantity of the cart (i.e. shipping quantity rate of $3 = $21 for 7 items)
                 //shippingTotalRate: 0.1,  //a percentage of the total cost of the cart
                 beforeCheckout: function( data ){
-                    $('.address').each(function(e){
-                        shippingInfo += $(this).val() + ',';
-                    })               
+                     $('.info').each(function(e){
+                        var entry = $(this).val();
+                        if(entry.length > 0)
+                        {
+                            shippingInfo +=  + ',';
+                        }
+                        
+                    }) ;               
                     data.cancel_url = data.cancel_return;
                     data.return_url = data.return;                    
                     data.item_description = shippingInfo;
@@ -80,7 +86,7 @@
         </style>
     </head>
     <body>
-        <p>This example handles shipping. We have included a function in this example to capture the shipping information, this gets passed to your PayFast account as a description and can be viewed in the History section of your Payfast account.</p>
+        <p>This example handles shipping. We have included a function in this example to capture the shipping information, this gets passed to your PayFast account as a description and can be viewed in the History section of your Payfast account. This sample is very basic, the popup should be replaced by a colorbox (http://www.jacklmoore.com/colorbox) or the like. </p>
         <p>For more detailed information on shipping integration, visit <a href='http://simplecartjs.org/documentation/shipping'>SimpleCart Shipping Information</a></p>
         <table>
             <tr>
@@ -146,12 +152,12 @@
         <div style="display:none;">
             <div id="form">
                     <h4>Your Address</h4>
-                    Line 1: <input class='address' type='text'><br>
-                    Line 2: <input class='address' type='text'><br>
-                    City: <input class='address' type='text'><br>
-                    Post Code: <input class='address' type='text'><br>
-                    Province: <input class='address' type='text'><br>
-                    Country: <select class='address'>
+                    Line 1: <input class='info' type='text'><br>
+                    Line 2: <input class='info' type='text'><br>
+                    City: <input class='info' type='text'><br>
+                    Post Code: <input class='info' type='text'><br>
+                    Province: <input class='info' type='text'><br>
+                    Country: <select class='info'>
                                 <option value='Botswana'>Botswana</option>
                                 <option value='Mozambique'>Mozambique</option>
                                 <option value='Namibia'>Namibia</option>
