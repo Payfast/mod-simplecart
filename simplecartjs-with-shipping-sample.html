@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+        <title>simpleCart(js) Payfast shopping cart example with shipping</title>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/simpleCart.js"></script>
+        <script type="text/javascript">
+            var shippingInfo = '';
+            function captureAddress()
+            {
+                $('body').append('<div style="position:absolute;top:0;left:0;width:100%;height:100%;background: rgb(0, 0, 0);background: rgba(0, 0, 0, 0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: \"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)\";"><div style="border:solid thick #000000;width:350px;min-height:450px;margin:80px 450px;background:#FFFFFF;" id="formBox">&nbsp;</div></div>');
+                $('#formBox').html($('#form'));
+            }
+            simpleCart({
+                checkout: { 
+                    type: "SendForm" , 
+                    url: "https://sandbox.payfast.co.za/eng/process" , //Change this to https://www.payfast.co.za/eng/process when you finished testing
+
+                    // HTTP method for form, "POST" 
+                    method: "POST" , 
+
+                    // URL to redirect browser to after successful checkout
+                    success: "http://yourdomain.com/success.html" , 
+
+                    // URL to redirect browser to after checkout was cancelled by buyer
+                    cancel: "http://yourdomain.com/cancel.html" ,
+
+                    extra_data: {
+                        merchant_id: "10000100", 
+                        merchant_key: "46f0cd694581a",
+                        notify_url: "http://yourdomain.com/notify.html", 
+                        item_name: "Purchase from my store"                      
+                    }
+                },
+                // Custom function to handle shipping costs
+                shippingCustom: function(){ 
+
+                     if( simpleCart.quantity() > 20 ){
+                          return 0;
+                     } else {
+                          return 10.00;
+                     }
+                },
+                //shippingFlatRate: 10,    //a basic flat rate shipping
+                //shippingQuantityRate: 3, //rate based on the total quantity of the cart (i.e. shipping quantity rate of $3 = $21 for 7 items)
+                //shippingTotalRate: 0.1,  //a percentage of the total cost of the cart
+                beforeCheckout: function( data ){
+                    $('.address').each(function(e){
+                        shippingInfo += $(this).val() + ',';
+                    })               
+                    data.cancel_url = data.cancel_return;
+                    data.return_url = data.return;                    
+                    data.item_description = shippingInfo;
+                    data.amount = simpleCart.grandTotal();
+                }
+            });
+
+            simpleCart.currency({
+                code: "ZAR" ,
+                symbol: "R" ,
+                name: "South African Rand"
+            });
+
+            
+
+                
+
+        </script>
+        <style>
+            .simpleCart_items div, div {
+                float:left;
+                position: relative;
+                margin-right: 20px;
+            }
+            .simpleCart_shelfItem, .shoppingcart-container {
+                border: 1px solid gray;
+                padding: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <p>This example handles shipping. We have included a function in this example to capture the shipping information, this gets passed to your PayFast account as a description and can be viewed in the History section of your Payfast account.</p>
+        <p>For more detailed information on shipping integration, visit <a href='http://simplecartjs.org/documentation/shipping'>SimpleCart Shipping Information</a></p>
+        <table>
+            <tr>
+                <td>
+                    <div class="simpleCart_shelfItem">
+                        <h5 class="item_name">DUMMY PRODUCT 1</h5>
+                        <img src="images/num_1_m.gif" alt="DUMMY PRODUCT 1" title="DUMMY PRODUCT 1" class="item_image"/>
+                        <span class="item_price"><strong>R10.01</strong></span>
+                        <noscript><a href="no_javascript.html" class="item_add">Add to Cart</a>;</noscript>
+                        <script>document.write('<a href="#" class="item_add">Add to Cart</a>');</script>
+                        <p class="item_Description">product description product description<br/>product description product description</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="simpleCart_shelfItem">
+                        <h5 class="item_name">DUMMY PRODUCT 2</h5>
+                        <img src="images/num_2_m.gif" alt="DUMMY PRODUCT 2" title="DUMMY PRODUCT 2" class="item_image"/>
+                        <span class="item_price"><strong>R20.02</strong></span>
+                        <noscript><a href="no_javascript.html" class="item_add">Add to Cart</a>;</noscript>
+                        <script>document.write('<a href="#" class="item_add">Add to Cart</a>');</script>
+                        <p class="item_Description">product description product description<br/>product description product description</p>
+                    </div>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="simpleCart_shelfItem">
+                        <h5 class="item_name">DUMMY PRODUCT 3</h5>
+                        <span class="item_price"><strong>R30.03</strong></span>
+                        <noscript><a href="no_javascript.html" class="item_add">Add to Cart</a>;</noscript>
+                        <script>document.write('<a href="#" class="item_add">Add to Cart</a>');</script>
+                        <p class="item_Description">product description product description<br/>product description product description</p>
+                    </div>  
+                </td>
+                <td>
+                    <div class="simpleCart_shelfItem">
+                        <h5 class="item_name">DUMMY PRODUCT 4</h5>
+                        <span class="item_price"><strong>R40.04</strong></span>
+                        <noscript><a href="no_javascript.html" class="item_add">Add to Cart</a>;</noscript>
+                        <script>document.write('<a href="#" class="item_add">Add to Cart</a>');</script>
+                        <p class="item_Description">product description product description<br/>product description product description</p>
+                    </div>  
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="shoppingcart-container"><div style="width:700px;" class="simpleCart_items"></div></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <div id="cartTotal"><strong>Total: </strong><span class="simpleCart_total"></span></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <noscript><a href="no_javascript.html" class="simpleCart_empty">Empty Cart</a>;</noscript>
+                    <script>document.write('<a href="#" class="simpleCart_empty">Empty Cart</a>');</script>
+                </td>
+                <td>
+                    <noscript><a href="no_javascript.html" class="simpleCart_checkout">Checkout</a>;</noscript>
+                    <script>document.write('<a href="#" onclick="captureAddress();return false;">Checkout</a>');</script>
+            </tr>
+        </table>
+        <div style="display:none;">
+            <div id="form">
+                    <h4>Your Address</h4>
+                    Line 1: <input class='address' type='text'><br>
+                    Line 2: <input class='address' type='text'><br>
+                    City: <input class='address' type='text'><br>
+                    Post Code: <input class='address' type='text'><br>
+                    Province: <input class='address' type='text'><br>
+                    Country: <select class='address'>
+                                <option value='Botswana'>Botswana</option>
+                                <option value='Mozambique'>Mozambique</option>
+                                <option value='Namibia'>Namibia</option>
+                                <option value='South Africa' selected='selected'>South Africa</option>
+                                <option value='Zimbabwe'>Zimbabwe</option>
+                            </select><br>
+                    <a href="#" class="simpleCart_checkout">Checkout</a>
+                
+            </div>
+        </div>
+    </body>
+</html>
