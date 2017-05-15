@@ -18,7 +18,7 @@ simpleCart(js) depends on 1 of 3 common Javascript libraries (jQuery, Prototype 
 
 * Include the simpleCart.js file itself
 
-Visit https://github.com/PayFast/mod-simplecartfor a complete example.
+See example sample files
 
 
 ******************************************************************************
